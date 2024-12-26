@@ -4,8 +4,6 @@ import numpy as np
 import plotly.express as px
 from datetime import datetime, timedelta
 import requests
-import matplotlib.pyplot as plt
-%matplotlib inline
 
 
 prices = pd.read_csv("prices.csv", index_col=1, parse_dates=True)
