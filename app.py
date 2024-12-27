@@ -24,33 +24,9 @@ tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Infos", "Preço
 
 with tab1:
     st.title("Evolução do patrimônio")
-
-    # Obter o último valor e a data correspondente
-    ultimo_valor = curves_cons["AUM"].iloc[-1]
-    ultima_data = curves_cons["Date"].iloc[-1]
     
-    # Criar o gráfico de barras
-    consolidado = px.bar(
-        curves_cons, 
-        x="Date", 
-        y="AUM", 
-        title="AUM Consolidado", 
-        color_discrete_sequence=["green"], 
-        labels={"Date": ""}
-    )
-    
-    # Adicionar uma bolinha dourada no final do gráfico
-    consolidado.add_scatter(
-        x=[ultima_data], 
-        y=[ultimo_valor], 
-        mode="markers+text", 
-        marker=dict(size=12, color="gold"),  # Bolinha dourada
-        text=[f"R$ {ultimo_valor:,.2f}"],  # Rótulo com o valor
-        textposition="top center",  # Posição do texto
-        showlegend=False  # Não exibir na legenda
-    )
-    
-    # Exibir o gráfico
+    consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["green"], labels={"Date": ""})
+    consolidado.add_scatter(x=[curves_cons["Date"].iloc[-1]], y=[curves_cons["AUM"].iloc[-1]], mode="text",text=[f"R$ {curves_cons["AUM"].iloc[-1]:,.2f}"],textposition="top center",showlegend=False)
     st.plotly_chart(consolidado, use_container_width=True)
 
     
