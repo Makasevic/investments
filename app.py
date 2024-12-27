@@ -18,13 +18,23 @@ tab1, tab2, tab3 = st.tabs(["Resultado consolidado", "Tabela de preços", "Tabel
 
 with tab1:
     st.title("Evolução do patrimônio")
+    
     st.subheader("Consolidado")
     consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["steelblue"])
     st.plotly_chart(consolidado, use_container_width=True)
 
     st.subheader("Por classe")
-    classe = px.bar(curves.reset_index(), x="index", y="Class", title="AUM por Classe",color_discrete_sequence=["steelblue"])
-    st.plotly_chart(classe, use_container_width=True)
+    for column in curves.columns:
+        st.subheader(f"Por {column}")
+        plot = px.bar(
+            curves.reset_index(),
+            x=curves.index,  # O índice do DataFrame, assumindo que é uma data ou sequência relevante
+            y=column,
+            title="column",
+            labels={"index": "Data", column: "Valor"},
+            color_discrete_sequence=["steelblue"]
+        )
+        st.plotly_chart(plot, use_container_width=True)
 
     st.subheader("Por fundo")
     fundo = px.bar(curves.reset_index(), x="index", y="Fund", title="AUM por Fundo",color_discrete_sequence=["steelblue"])
