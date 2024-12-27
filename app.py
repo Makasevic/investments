@@ -30,7 +30,7 @@ with tab1:
     curves_grouped = curves_grouped.groupby(curves_grouped.columns, axis=1).sum()
     curves_classe = curves_grouped.reset_index()
     curves_classe = curves_classe.melt(id_vars=[curves_classe.columns[0]],var_name="Categoria",value_name="Valor")
-    plot = px.line(curves_classe,x=[],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_classe.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"})
+    plot = px.line(curves_classe,x=curves_inv.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_classe.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"})
     st.plotly_chart(plot, use_container_width=True)
 
 
