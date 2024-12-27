@@ -24,9 +24,13 @@ with tab1:
     st.plotly_chart(consolidado, use_container_width=True)
 
 
-    curves = curves.reset_index().melt(
-        id_vars=["index"], 
-        var_name="Categoria", 
+    # Certifique-se de que o índice foi resetado e nome correto é usado
+    curves_reset = curves.reset_index()
+    
+    # Ajuste 'index' para o nome correto do índice após o reset (ou renomeie, se necessário)
+    curves_long = curves_reset.melt(
+        id_vars=[curves_reset.columns[0]],  # O nome correto da coluna do índice
+        var_name="Categoria",
         value_name="Valor"
     )
     
@@ -34,14 +38,15 @@ with tab1:
     st.subheader("Por classe")
     plot = px.bar(
         curves_long,
-        x="index", 
-        y="Valor", 
+        x=curves_reset.columns[0],  # Use o índice resetado no eixo x
+        y="Valor",
         color="Categoria",  # Diferencia por coluna original
         title="AUM por Categoria",
-        labels={"index": "Data", "Valor": "AUM", "Categoria": "Classe"},
+        labels={curves_reset.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"},
         barmode="group",  # Mostra barras agrupadas
     )
     st.plotly_chart(plot, use_container_width=True)
+
 
     st.subheader("Por fundo")
     fundo = px.bar(curves.reset_index(), x="index", y="Fund", title="AUM por Fundo",color_discrete_sequence=["steelblue"])
