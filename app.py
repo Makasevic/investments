@@ -27,23 +27,21 @@ with tab1:
     # Certifique-se de que o índice foi resetado e nome correto é usado
     curves_reset = curves.reset_index()
     
-    # Ajuste 'index' para o nome correto do índice após o reset (ou renomeie, se necessário)
     curves_long = curves_reset.melt(
         id_vars=[curves_reset.columns[0]],  # O nome correto da coluna do índice
         var_name="Categoria",
         value_name="Valor"
     )
     
-    # Criar o gráfico com todas as colunas
+    # Criar o gráfico com todas as colunas em linhas
     st.subheader("Por classe")
-    plot = px.bar(
+    plot = px.line(
         curves_long,
         x=curves_reset.columns[0],  # Use o índice resetado no eixo x
         y="Valor",
         color="Categoria",  # Diferencia por coluna original
-        title="AUM por Categoria",
-        labels={curves_reset.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"},
-        barmode="group",  # Mostra barras agrupadas
+        title="Evolução por Categoria",
+        labels={curves_reset.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"}
     )
     st.plotly_chart(plot, use_container_width=True)
 
