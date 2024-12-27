@@ -19,7 +19,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Tabela de preç
 with tab1:
     st.title("Evolução do patrimônio")
     
-    consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["steelblue"])
+    consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["green"], labels={"Date": ""})
     st.plotly_chart(consolidado, use_container_width=True)
 
     
