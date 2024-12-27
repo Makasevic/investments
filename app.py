@@ -35,14 +35,14 @@ with tab1:
     curves_classe = curves_grouped.reset_index()
     curves_classe = curves_classe.melt(id_vars=[curves_classe.columns[0]],var_name="Categoria",value_name="Valor")
     plot = px.line(curves_classe,x=curves_classe.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",
-                   labels={curves_classe.columns[0]: "", "Valor": "AUM", "Categoria": "Classe"}, color_discrete_sequence=px.colors.qualitative.G10)
+                   labels={curves_classe.columns[0]: "", "Valor": "AUM", "Categoria": "Classe"}, color_discrete_sequence=px.colors.qualitative.D3)
     st.plotly_chart(plot, use_container_width=True)
 
     dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Fundo']))
     curves_inv = curves.rename(dict_names, axis=1).fillna(0).reset_index()
     curves_inv = curves_inv.melt(id_vars=[curves_inv.columns[0]],var_name="Categoria",value_name="Valor")
     plot = px.line(curves_inv,x=curves_inv.columns[0],y="Valor",color="Categoria",title="Evolução por Investimento",
-                   labels={curves_inv.columns[0]: "", "Valor": "AUM", "Categoria": "Investimento"}, color_discrete_sequence=px.colors.qualitative.G10)
+                   labels={curves_inv.columns[0]: "", "Valor": "AUM", "Categoria": "Investimento"}, color_discrete_sequence=px.colors.qualitative.D3)
     st.plotly_chart(plot, use_container_width=True)
 
 
@@ -58,7 +58,7 @@ with tab2:
         values=latest_values_classe.values,  # Valores da última linha
         title="Proporção por Classe",
         hole=0.4,
-        color_discrete_sequence=px.colors.qualitative.G10
+        color_discrete_sequence=px.colors.qualitative.D3
     )
     st.plotly_chart(classe_pizza, use_container_width=True)
 
@@ -71,7 +71,7 @@ with tab2:
         values=latest_values_inv.values,  # Valores da última linha
         title="Proporção por Investimento",
         hole=0.4,
-        color_discrete_sequence=px.colors.qualitative.G10
+        color_discrete_sequence=px.colors.qualitative.D3
     )
     st.plotly_chart(inv_pizza, use_container_width=True)
 
