@@ -23,18 +23,25 @@ with tab1:
     consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["steelblue"])
     st.plotly_chart(consolidado, use_container_width=True)
 
+
+    curves = curves.reset_index().melt(
+        id_vars=["index"], 
+        var_name="Categoria", 
+        value_name="Valor"
+    )
+    
+    # Criar o gráfico com todas as colunas
     st.subheader("Por classe")
-    for column in curves.columns:
-        st.subheader(f"Por {column}")
-        plot = px.bar(
-            curves.reset_index(),
-            x=curves.index,  # O índice do DataFrame, assumindo que é uma data ou sequência relevante
-            y=column,
-            title="column",
-            labels={"index": "Data", column: "Valor"},
-            color_discrete_sequence=["steelblue"]
-        )
-        st.plotly_chart(plot, use_container_width=True)
+    plot = px.bar(
+        curves_long,
+        x="index", 
+        y="Valor", 
+        color="Categoria",  # Diferencia por coluna original
+        title="AUM por Categoria",
+        labels={"index": "Data", "Valor": "AUM", "Categoria": "Classe"},
+        barmode="group",  # Mostra barras agrupadas
+    )
+    st.plotly_chart(plot, use_container_width=True)
 
     st.subheader("Por fundo")
     fundo = px.bar(curves.reset_index(), x="index", y="Fund", title="AUM por Fundo",color_discrete_sequence=["steelblue"])
