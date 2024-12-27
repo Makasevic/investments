@@ -9,7 +9,7 @@ import requests
 prices = pd.read_csv("prices.csv", index_col=1, parse_dates=True)
 invest_info = pd.read_csv("invest_info.csv", index_col=0)
 curves = pd.read_csv("curves.csv", index_col=1, parse_dates=True)
-curves_cons = curves.sum(1)
+#curves_cons = curves.sum(1)
 
 # Interface Streamlit
 tab1, tab2, tab3 = st.tabs(["Resultado consolidado", "Tabela de preços", "Tabela de cotas"])
