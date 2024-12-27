@@ -6,7 +6,11 @@ import plotly.express as px
 # Carregar os dados
 prices = pd.read_csv("prices.csv", index_col=0, parse_dates=True)
 invest_info = pd.read_csv("invest_info.csv", index_col=0)
-curves = pd.read_csv("curves.csv", index_col=0, parse_dates=True)
+
+cotas = invest_info.pivot(index='Data', columns='Bloomberg ID', values='Quantidade de cotas')
+cotas.index = pd.to_datetime(cotas.index)
+cotas = cotas.reindex_like(prices).replace(np.nan, 0).cumsum()
+curves = (cotas.astype(float).values * prices.astype(float))
 
 # Preprocessamento
 curves = curves.replace(0, np.nan).dropna(how='all').round(0)
