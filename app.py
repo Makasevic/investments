@@ -58,7 +58,7 @@ with tab2:
         values=latest_values_classe.values,  # Valores da última linha
         title="Proporção por Classe",
         hole=0.4,
-        color_discrete_sequence=px.colors.G10
+        color_discrete_sequence=px.colors.qualitative.G10
     )
     st.plotly_chart(classe_pizza, use_container_width=True)
 
@@ -71,7 +71,7 @@ with tab2:
         values=latest_values_inv.values,  # Valores da última linha
         title="Proporção por Investimento",
         hole=0.4,
-        color_discrete_sequence=px.colors.G10
+        color_discrete_sequence=px.colors.qualitative.G10
     )
     st.plotly_chart(inv_pizza, use_container_width=True)
 
