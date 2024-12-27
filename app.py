@@ -9,7 +9,7 @@ import requests
 prices = pd.read_csv("prices.csv", index_col=0, parse_dates=True)
 invest_info = pd.read_csv("invest_info.csv", index_col=0)
 curves = pd.read_csv("curves.csv", index_col=0, parse_dates=True)
-curves = curves.dropna(how='all').round(0)
+curves = curves.replace(0, np.nan).dropna(how='all').round(0)
 curves_cons = curves.sum(1).astype(int)
 
 # Interface Streamlit
