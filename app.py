@@ -75,7 +75,7 @@ with tab2:
 
 with tab3:
     st.title("Informações gerais")
-    st.dataframe(invest_info)
+    st.dataframe(invest_info.set_index('Data'))
 
 
 with tab4:
