@@ -34,7 +34,7 @@ with tab1:
     dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Fundo']))
     curves_inv = curves.rename(dict_names, axis=1).fillna(0).reset_index()
     curves_inv = curves_inv.melt(id_vars=[curves_inv.columns[0]],var_name="Categoria",value_name="Valor")
-    plot = px.line(curves_inv,x=curves_inv.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_inv.columns[0]: "", "Valor": "AUM", "Categoria": "Classe"})
+    plot = px.line(curves_inv,x=curves_inv.columns[0],y="Valor",color="Categoria",title="Evolução por Investimento",labels={curves_inv.columns[0]: "", "Valor": "AUM", "Categoria": "Investimento"})
     st.plotly_chart(plot, use_container_width=True)
 
 
