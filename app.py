@@ -5,7 +5,7 @@ import plotly.express as px
 
 # Carregar os dados
 prices = pd.read_csv("prices.csv", index_col=0, parse_dates=True)
-invest_info = pd.read_csv("invest_info.csv", index_col=0)
+invest_info = pd.read_csv("invest_info.csv", index_col=0, parse_dates=True)
 
 cotas = invest_info.pivot(index=invest_info.index, columns='Bloomberg ID', values='Quantidade de cotas')
 cotas.index = pd.to_datetime(cotas.index)
