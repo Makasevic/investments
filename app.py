@@ -26,7 +26,7 @@ with tab1:
     st.title("Evolução do patrimônio")
     
     consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["green"], labels={"Date": ""})
-    consolidado.add_scatter(x=[curves_cons["Date"].iloc[-1]], y=[curves_cons["AUM"].iloc[-1] * 1.02], mode="text",
+    consolidado.add_scatter(x=[curves_cons["Date"].iloc[-1]], y=[curves_cons["AUM"].iloc[-1] * 1.05], mode="text",
                             text=[f"R$ {curves_cons["AUM"].iloc[-1]:,.2f}"], textposition="top center", showlegend=False)
     st.plotly_chart(consolidado, use_container_width=True)
 
