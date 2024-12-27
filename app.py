@@ -25,7 +25,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Infos", "Preço
 with tab1:
     st.title("Evolução do patrimônio")
     
-    consolidado = px.line(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["green"], labels={"Date": ""})
+    consolidado = px.line(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["gold"], labels={"Date": ""})
     consolidado.add_scatter(x=[curves_cons["Date"].iloc[-1]], y=[curves_cons["AUM"].iloc[-1] * 1.05], mode="text",
                             text=[f"<b style='color:gold;'>{curves_cons["AUM"].iloc[-1]:,.0f}</b>"], textposition="top center", showlegend=False)
     st.plotly_chart(consolidado, use_container_width=True)
