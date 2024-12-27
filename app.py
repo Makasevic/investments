@@ -41,10 +41,42 @@ with tab1:
     plot = px.line(curves_inv,x=curves_inv.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_inv.columns[0]: "", "Valor": "AUM", "Categoria": "Classe"})
     st.plotly_chart(plot, use_container_width=True)
 
+
 with tab2:
+    st.title("Informações gerais")
+        
+    st.subheader("Por classe")
+    dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Tipo']))
+    curves_grouped = curves.rename(dict_names, axis=1)
+    curves_grouped = curves_grouped.groupby(curves_grouped.columns, axis=1).sum()
+    latest_values_classe = curves_grouped.iloc[-1]  # Última linha agrupada por classe
+    classe_pizza = px.pie(
+        names=latest_values_classe.index,  # Nomes das categorias
+        values=latest_values_classe.values,  # Valores da última linha
+        title="Proporção por Classe - Última Linha",
+        hole=0.4
+    )
+    st.plotly_chart(classe_pizza, use_container_width=True)
+    
+    st.subheader("Por investimento")
+    dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Fundo']))
+    curves_inv = curves.rename(dict_names, axis=1).fillna(0)
+    latest_values_inv = curves_inv.iloc[-1]  # Última linha agrupada por fundo
+    inv_pizza = px.pie(
+        names=latest_values_inv.index,  # Nomes das categorias
+        values=latest_values_inv.values,  # Valores da última linha
+        title="Proporção por Investimento - Última Linha",
+        hole=0.4
+    )
+    st.plotly_chart(inv_pizza, use_container_width=True)
+
+
+
+with tab3:
     st.title("Informações gerais")
     st.dataframe(invest_info)
 
-with tab3:
+
+with tab4:
     st.title("Tabela de preços")
     st.dataframe(prices.sort_index(ascending=False))
