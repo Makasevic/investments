@@ -19,8 +19,8 @@ invest_info = pd.read_csv("invest_info.csv", index_col=0, parse_dates=True)
 # curves_cons = curves.sum(axis=1).astype(int).reset_index()
 # curves_cons.columns = ['Date', 'AUM']
 
-# # Interface Streamlit
-# tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Tabela de preços", "Tabela de cotas"])
+# Interface Streamlit
+tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Tabela de preços", "Tabela de cotas"])
 
 # with tab1:
 #     st.title("Evolução do patrimônio")
