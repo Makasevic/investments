@@ -26,7 +26,8 @@ with tab1:
     
     st.subheader("Por classe")
     dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Tipo']))
-    curves_long = curves.rename(dict_names, axis=1).reset_index()
+    curves_long = curves.rename(dict_names, axis=1)
+    curves_long = curves_long.groupby(curves_long.columns, axis=1).sum().reset_index()
     curves_long = curves_long.melt(id_vars=[curves_long.columns[0]],var_name="Categoria",value_name="Valor")
     plot = px.line(curves_long,x=curves_long.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_long.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"})
     st.plotly_chart(plot, use_container_width=True)
