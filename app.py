@@ -7,7 +7,7 @@ import plotly.express as px
 prices = pd.read_csv("prices.csv", index_col=0, parse_dates=True)
 invest_info = pd.read_csv("invest_info.csv", index_col=0)
 
-cotas = invest_info.pivot(index="Data", columns='Bloomberg ID', values='Quantidade de cotas')
+cotas = invest_info.pivot(index=invest_info.index, columns='Bloomberg ID', values='Quantidade de cotas')
 cotas.index = pd.to_datetime(cotas.index)
 cotas = cotas.reindex_like(prices).replace(np.nan, 0).cumsum()
 curves = (cotas.astype(float).values * prices.astype(float))
@@ -16,8 +16,6 @@ curves = (cotas.astype(float).values * prices.astype(float))
 curves = curves.replace(0, np.nan).dropna(how='all').round(0)
 curves_cons = curves.sum(axis=1).astype(int).reset_index()
 curves_cons.columns = ['Date', 'AUM']
-
-invest_info = invest_info.set_index("Data")
 
 # Interface Streamlit
 tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Tabela de preços", "Tabela de cotas"])
