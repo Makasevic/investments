@@ -23,15 +23,18 @@ with tab1:
     consolidado = px.bar(curves_cons, x="Date", y="AUM", title="AUM Consolidado",color_discrete_sequence=["steelblue"])
     st.plotly_chart(consolidado, use_container_width=True)
 
-    curves_reset = curves.reset_index()
     
     st.subheader("Por classe")
-    curves_long = curves_reset.melt(id_vars=[curves_reset.columns[0]],var_name="Categoria",value_name="Valor")
+    dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Tipo']))
+    curves_long = curves.rename(dict_names, axis=1).reset_index()
+    curves_long = curves_long.melt(id_vars=[curves_reset.columns[0]],var_name="Categoria",value_name="Valor")
     plot = px.line(curves_long,x=curves_reset.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_reset.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"})
     st.plotly_chart(plot, use_container_width=True)
 
 
     st.subheader("Por invetimento")
+    dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Fundo']))
+    curves_long = curves.rename(dict_names, axis=1).reset_index()
     curves_long = curves_reset.melt(id_vars=[curves_reset.columns[0]],var_name="Categoria",value_name="Valor")
     plot = px.line(curves_long,x=curves_reset.columns[0],y="Valor",color="Categoria",title="Evolução por Categoria",labels={curves_reset.columns[0]: "Data", "Valor": "AUM", "Categoria": "Classe"})
     st.plotly_chart(plot, use_container_width=True)
