@@ -19,7 +19,7 @@ curves_cons = curves.sum(axis=1).astype(int).reset_index()
 curves_cons.columns = ['Date', 'AUM']
 
 # Interface Streamlit
-tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Tabela de preços", "Tabela de cotas"])
+tab1, tab2, tab3, tab4 = st.tabs(["Evolução", "Composição", "Infos", "Preços"])
 
 
 with tab1:
