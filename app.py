@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 import requests
 
 
-prices = pd.read_csv("prices.csv", index_col=1, parse_dates=True)
+prices = pd.read_csv("prices.csv", index_col=0, parse_dates=True)
 invest_info = pd.read_csv("invest_info.csv", index_col=0)
-curves = pd.read_csv("curves.csv", index_col=1, parse_dates=True)
+curves = pd.read_csv("curves.csv", index_col=0, parse_dates=True)
 #curves_cons = curves.sum(1)
 
 # Interface Streamlit
