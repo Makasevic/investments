@@ -41,7 +41,6 @@ with tab1:
 with tab2:
     st.title("Composição")
         
-    st.subheader("Por classe")
     dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Tipo']))
     curves_grouped = curves.rename(dict_names, axis=1)
     curves_grouped = curves_grouped.groupby(curves_grouped.columns, axis=1).sum()
@@ -49,19 +48,19 @@ with tab2:
     classe_pizza = px.pie(
         names=latest_values_classe.index,  # Nomes das categorias
         values=latest_values_classe.values,  # Valores da última linha
-        title="Proporção por Classe - Última Linha",
+        title="Proporção por Classe",
         hole=0.4
     )
     st.plotly_chart(classe_pizza, use_container_width=True)
-    
-    st.subheader("Por investimento")
+
+
     dict_names = dict(zip(invest_info['Bloomberg ID'], invest_info['Fundo']))
     curves_inv = curves.rename(dict_names, axis=1).fillna(0)
     latest_values_inv = curves_inv.iloc[-1]  # Última linha agrupada por fundo
     inv_pizza = px.pie(
         names=latest_values_inv.index,  # Nomes das categorias
         values=latest_values_inv.values,  # Valores da última linha
-        title="Proporção por Investimento - Última Linha",
+        title="Proporção por Investimento",
         hole=0.4
     )
     st.plotly_chart(inv_pizza, use_container_width=True)
